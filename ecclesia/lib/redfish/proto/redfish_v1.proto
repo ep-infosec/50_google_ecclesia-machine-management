@@ -1,0 +1,65 @@
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// The proto defines struct based gRPC-Redfish request, response, and the
+// Redfish service.
+
+syntax = "proto3";
+
+package redfish.v1;
+
+import "google/protobuf/struct.proto";
+
+message Request {
+  string url = 1;
+  oneof content_type {
+    google.protobuf.Struct json = 2;
+    bytes octet_stream = 3;
+  }
+  map<string, string> headers = 4;
+}
+
+message Response {
+  oneof content_type {
+    google.protobuf.Struct json = 1;
+    bytes octet_stream = 3;
+  }
+  uint32 code = 2;
+  map<string, string> headers = 4;
+}
+
+message GetOverridePolicyRequest {}
+
+message GetOverridePolicyResponse {
+  // Contents of the policy file as raw bytes. Encoding is defined by the source
+  // file.
+  bytes policy = 1;
+}
+
+// The dynamic Redfish service definition.
+service RedfishV1 {
+  // Sends a GET request
+  rpc Get(Request) returns (Response) {}
+  // Sends a POST request
+  rpc Post(Request) returns (Response) {}
+  // Sends a PATCH request
+  rpc Patch(Request) returns (Response) {}
+  // Sends a PUT request
+  rpc Put(Request) returns (Response) {}
+  // Sends a DELETE request
+  rpc Delete(Request) returns (Response) {}
+  // Get Redfish override data
+  rpc GetOverridePolicy(GetOverridePolicyRequest)
+      returns (GetOverridePolicyResponse) {}
+}

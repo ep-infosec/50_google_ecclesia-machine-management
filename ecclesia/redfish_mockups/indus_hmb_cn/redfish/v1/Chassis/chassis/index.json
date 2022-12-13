@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Chassis.Chassis",
+    "@odata.id": "/redfish/v1/Chassis/chassis",
+    "@odata.type": "#Chassis.v1_6_0.Chassis",
+    "Assembly": {
+        "@odata.id": "/redfish/v1/Chassis/chassis/Assembly"
+    },
+    "Id": "chassis",
+    "ChassisType" : "RackMount",
+    "Links": {
+        "ComputerSystems":  [
+            {
+                "@odata.id": "/redfish/v1/Systems/system"
+            }
+        ]
+    },
+    "Thermal": {
+        "@odata.id": "/redfish/v1/Chassis/chassis/Thermal"
+    },
+    "Name": "Indus Chassis",
+    "Manufacturer": "gmaker",
+    "Model": "Indus",
+    "PartNumber": "1043652-02",
+    "SerialNumber": "MBBQTW194106556"
+}

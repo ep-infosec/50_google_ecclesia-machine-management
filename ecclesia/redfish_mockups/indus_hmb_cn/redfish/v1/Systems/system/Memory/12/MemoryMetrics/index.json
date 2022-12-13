@@ -1,0 +1,11 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#MemoryMetrics.MemoryMetrics",
+    "@odata.id": "/redfish/v1/Systems/system/Memory/12/MemoryMetrics",
+    "@odata.type": "#MemoryMetrics.v1_4_0.MemoryMetrics",
+    "Id": "Metrics",
+    "Name": "Memory Metrics",
+    "LifeTime": {
+        "CorrectableECCErrorCount": 0,
+        "UncorrectableECCErrorCount": 0
+    }
+}

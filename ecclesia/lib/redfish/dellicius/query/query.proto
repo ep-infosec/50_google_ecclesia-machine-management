@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package ecclesia;
+
+// Message encapsulating Redfish server input to a Query format.
+message DelliciusQuery {
+  // Smallest unit of operation, targeting specific set of resources
+  message Subquery {
+    // Identifies redfish property to parse along with .
+    message RedfishProperty {
+      enum PrimitiveType {
+        UNDEFINED = 0;
+        BOOLEAN = 1;
+        INT64 = 2;
+        STRING = 3;
+        DOUBLE = 4;
+        DATE_TIME_OFFSET = 5;
+      }
+      string property = 1;
+      // Named attribute to which queried property in response data is mapped.
+      optional string name = 2;
+      PrimitiveType type = 3;
+    }
+    // Uniquely identifies the subquery. It is the responsibility of client
+    // application to use a unique string else the subquery output will be
+    // bundled together. Query engine processes the subqueries irrespective of
+    // the subquery id and it is only at the time of aggregating the output or
+    // caching the leaf nodes is when query engine uses the subquery id.
+    string subquery_id = 1;
+    // Identifies json object to query and expressions to apply.
+    string redpath = 2;
+    repeated RedfishProperty properties = 3;
+  }
+  // A unique name for identifying this platform-related query.
+  string query_id = 1;
+  repeated Subquery subquery = 2;
+}
